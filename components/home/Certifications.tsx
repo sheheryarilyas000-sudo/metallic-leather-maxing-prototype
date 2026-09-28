@@ -1,14 +1,23 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "@/components/motion";
 import { fadeFromLeft, fadeUp, staggerContainer } from "@/components/motion";
-import { certifications } from "@/lib/home-content";
+
+// NOTE: Individual 3D metallic badges can be sliced from your reference image,
+// background-removed to create transparent PNGs, named badge-1.png to badge-5.png,
+// and placed in public/badges/.
+const certificates = [
+  { title: "ISO 9001:2015", scope: "Quality Management Systems", imageSrc: "/badges/badge-1.png" },
+  { title: "WRAP Gold", scope: "Ethical & Responsible Production", imageSrc: "/badges/badge-2.png" },
+  { title: "Sedex SMETA", scope: "Social Compliance & Labor Standards", imageSrc: "/badges/badge-3.png" },
+  { title: "BSCI Compliant", scope: "Supply Chain Transparency", imageSrc: "/badges/badge-4.png" },
+  { title: "OEKO-TEX 100", scope: "Tested for Harmful Substances", imageSrc: "/badges/badge-5.png" }
+];
 
 // Two identical sets duplicated for a seamless infinite loop without jumping
-const certList = [...certifications, ...certifications];
-const duplicatedCerts = [...certList, ...certList];
+const certList = [...certificates, ...certificates];
+const duplicatedCertificates = [...certList, ...certList];
 
 export function Certifications() {
   return (
@@ -98,38 +107,36 @@ export function Certifications() {
           }}
         >
           <motion.div
-            className="flex w-max gap-10 sm:gap-14"
+            className="flex w-max gap-12 sm:gap-16"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
-              duration: 22,
+              duration: 25,
               ease: "linear",
               repeat: Infinity,
             }}
           >
-            {duplicatedCerts.map((cert, index) => (
+            {duplicatedCertificates.map((cert, index) => (
               <div
-                key={`${cert.name}-${index}`}
-                className="flex-shrink-0 w-36 sm:w-44 flex flex-col items-center text-center group cursor-pointer bg-transparent"
+                key={`${cert.title}-${index}`}
+                className="flex-shrink-0 w-44 sm:w-52 flex flex-col items-center text-center group cursor-pointer bg-transparent"
               >
-                {/* Circular badge container */}
-                <div className="relative mb-3 flex h-24 w-24 items-center justify-center rounded-full overflow-hidden border border-[#BF953F]/40 bg-white/10 shadow-lg p-2 transition-transform duration-300 group-hover:scale-105 mx-auto">
-                  <Image
-                    src={`/images/cert-badge-${(index % certifications.length) + 1}.png`}
-                    alt={`${cert.name} certification badge`}
-                    width={96}
-                    height={96}
-                    className="h-full w-full object-contain rounded-full"
+                {/* 3D Metallic Badge Image Asset */}
+                <div className="w-24 h-24 flex items-center justify-center relative z-10 mb-4 drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)] transition-transform duration-300 group-hover:scale-110">
+                  <img
+                    src={cert.imageSrc}
+                    alt={cert.title}
+                    className="w-full h-full object-contain"
                   />
                 </div>
-                <h3
-                  className="font-sans text-[15px] font-bold tracking-normal text-[#FDFBF7]"
-                >
-                  {cert.name}
+
+                {/* Title in Metallic Gold Text Gradient */}
+                <h3 className="font-sans text-[15px] font-bold tracking-normal bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] text-transparent bg-clip-text">
+                  {cert.title}
                 </h3>
-                <p
-                  className="mt-1 text-[13px] text-[#D5C7B8]/80 max-w-[18ch]"
-                >
-                  {cert.text}
+
+                {/* Scope text smaller, gray/white, easily readable */}
+                <p className="mt-1 text-[13px] text-[#D5C7B8] max-w-[22ch] leading-snug">
+                  {cert.scope}
                 </p>
               </div>
             ))}

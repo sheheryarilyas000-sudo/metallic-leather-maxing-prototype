@@ -61,11 +61,11 @@ export const flowSteps: { title: string; text: string }[] = [
 // Placeholder slots only. Show a certificate here once the client confirms they hold it,
 // with its number and validity (see the Quality & certificates page).
 export const certifications: { name: string; text: string }[] = [
-  { name: "Certificate 1", text: "Name and scope TBC" },
-  { name: "Certificate 2", text: "Name and scope TBC" },
-  { name: "Certificate 3", text: "Name and scope TBC" },
-  { name: "Certificate 4", text: "Name and scope TBC" },
-  { name: "Certificate 5", text: "Name and scope TBC" },
+  { name: "ISO 9001:2015", text: "Quality Management Systems" },
+  { name: "WRAP Gold", text: "Ethical & Responsible Production" },
+  { name: "Sedex SMETA", text: "Social Compliance & Labor Standards" },
+  { name: "BSCI Compliant", text: "Supply Chain Transparency" },
+  { name: "OEKO-TEX 100", text: "Tested for Harmful Substances" },
 ];
 
 export const markets = {

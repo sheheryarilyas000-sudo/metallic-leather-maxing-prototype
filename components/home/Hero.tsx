@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HeroVideoProvider } from "@/components/home/HeroVideo";
 import { RotatingWord } from "@/components/home/RotatingWord";
 import { quoteHref, site } from "@/lib/site";
@@ -10,10 +10,14 @@ const heroWords = ["Leather Jackets", "Biker Vests", "Custom Blazers", "Leather 
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    if (video.readyState >= 2) {
+      setIsVideoLoaded(true);
+    }
     video.muted = true;
     const play = () => video.play().catch(() => {});
     play();
@@ -26,16 +30,27 @@ export function Hero() {
 
   return (
     <HeroVideoProvider>
-      <section className="on-dark relative w-full min-h-screen overflow-hidden flex items-center -mt-[74px] text-white">
-        {/* Full-bleed Background Video - Natural 100% Scale without Artificial Zoom */}
+      <section className="on-dark relative w-full min-h-screen overflow-hidden flex items-center -mt-[74px] text-white bg-black">
+        {/* Instant Poster Image (First Frame) - shows immediately while video buffers */}
+        <img
+          src="/video-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        />
+
+        {/* Full-bleed Background Video with smooth 1s fade-in once data is ready */}
         <video
           ref={videoRef}
           src="/hero-video.mp4"
+          poster="/video-poster.jpg"
           autoPlay
-          loop
           muted
+          loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          preload="auto"
+          onLoadedData={() => setIsVideoLoaded(true)}
+          className={`transition-opacity duration-1000 ease-in-out ${isVideoLoaded ? "opacity-100" : "opacity-0"} w-full h-full object-cover absolute inset-0 z-0`}
         />
 
         {/* Left-to-Right Gradient Overlay for Text Readability & Right-side Clarity */}
