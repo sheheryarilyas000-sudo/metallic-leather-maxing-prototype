@@ -1,0 +1,765 @@
+@import "tailwindcss";
+
+/*
+ * Maxing Enterprises design tokens.
+ * Source of truth: ../maxing-design-system.md. Default Tailwind colours,
+ * breakpoints and radii are cleared so only the brand palette is available.
+ */
+@theme {
+  --color-*: initial;
+  --color-gold: #D4AF37;
+  --color-gold-deep: #B89326;
+  --color-red: #D4AF37;
+  --color-red-deep: #B89326;
+  --color-blue: #8C6239;
+  --color-navy: #2C1A12;
+  --color-navy-deep: #1E100A;
+  --color-espresso: #2C1A12;
+  --color-espresso-deep: #1E100A;
+  --color-cream: #FDFBF7;
+  --color-ink: #2C1A12;
+  --color-muted: #7A695E;
+  --color-bg: #FDFBF7;
+  --color-card: #ffffff;
+  --color-sand: #F7F2EB;
+  --color-line: #E8DFD5;
+  --color-tile: #FDFBF7;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-on-dark: #FDFBF7;
+  --color-on-dark-muted: #D5C7B8;
+
+  /* sm 640, md 860 (hamburger), lg 980 (grids collapse), xl 1180 */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 53.75rem;
+  --breakpoint-lg: 61.25rem;
+  --breakpoint-xl: 73.75rem;
+
+  --radius-*: initial;
+  --radius-base: 3px;
+
+  --font-logo: Georgia, "Times New Roman", serif;
+}
+
+@theme inline {
+  --font-head: var(--font-bricolage), "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-dm-sans), "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Plain-named aliases matching the design system document. */
+:root {
+  --gold: #D4AF37;
+  --gold-deep: #B89326;
+  --espresso: #2C1A12;
+  --espresso-deep: #1E100A;
+  --cream: #FDFBF7;
+  --red: var(--gold);
+  --red-deep: var(--gold-deep);
+  --blue: #8C6239;
+  --navy: var(--espresso);
+  --navy-deep: var(--espresso-deep);
+  --ink: #2C1A12;
+  --muted: #7A695E;
+  --bg: #FDFBF7;
+  --card: #ffffff;
+  --sand: #F7F2EB;
+  --line: #E8DFD5;
+  --on-dark: #FDFBF7;
+  --on-dark-muted: #D5C7B8;
+  --head: var(--font-head);
+  --sans: var(--font-sans);
+  --r: 3px;
+  --container: 1180px;
+  --gutter: 24px;
+  --section-y: 96px;
+}
+
+@media (max-width: 40rem) {
+  :root {
+    --section-y: 64px;
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 90px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (max-width: 40rem) {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--head);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  h3,
+  h4 {
+    line-height: 1.2;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--navy);
+    color: var(--on-dark);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Layout */
+  .wrap {
+    width: 100%;
+    max-width: calc(var(--container) + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+
+  .section {
+    padding-block: var(--section-y);
+  }
+
+  .section-head {
+    margin-bottom: 48px;
+  }
+
+  .measure {
+    max-width: 58ch;
+  }
+
+  /* Type scale */
+  .t-hero {
+    font-size: clamp(38px, 5.2vw, 64px);
+  }
+
+  .t-page {
+    font-size: clamp(32px, 4vw, 48px);
+  }
+
+  .t-section {
+    font-size: clamp(30px, 3.6vw, 44px);
+  }
+
+  .t-card {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  .t-card-sm {
+    font-size: 19px;
+    line-height: 1.2;
+  }
+
+  .t-lead {
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  .t-stat {
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: clamp(28px, 3.2vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  /* Stitch motif */
+  .stitch-h::after {
+    content: "";
+    display: block;
+    width: 84px;
+    margin-top: 16px;
+    border-top: 2px dashed var(--red);
+  }
+
+  .on-dark .stitch-h::after {
+    border-top-color: rgb(255 255 255 / 0.7);
+  }
+
+  .stitch-line {
+    border: 0;
+    border-top: 2px dashed var(--red);
+    opacity: 0.55;
+    margin: 0;
+  }
+
+  .stitch-list > li {
+    position: relative;
+    padding-left: 26px;
+  }
+
+  .stitch-list > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.8em;
+    width: 14px;
+    border-top: 2px dashed var(--red);
+  }
+
+  /* Buttons (1px border included in the padding so every variant is the same size) */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 14px 23px;
+    border: 1px solid transparent;
+    border-radius: var(--r);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.15s,
+      color 0.15s,
+      border-color 0.15s;
+  }
+
+  .btn-sm {
+    min-height: 38px;
+    padding: 10px 17px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, #BF953F 0%, #FCF6BA 50%, #B38728 100%);
+    color: #000000;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    color: #000000;
+  }
+
+  .btn-blue {
+    background: var(--blue);
+    color: var(--on-dark);
+  }
+
+  .btn-blue:hover {
+    background: var(--navy);
+  }
+
+  .btn-outline {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .btn-outline:hover {
+    background: var(--ink);
+    color: var(--on-dark);
+  }
+
+  .btn-outline-dark {
+    border-color: rgb(255 255 255 / 0.7);
+    color: var(--on-dark);
+  }
+
+  .btn-outline-dark:hover {
+    background: var(--on-dark);
+    color: var(--navy);
+  }
+
+  .btn-added {
+    background: var(--navy);
+    color: var(--on-dark);
+  }
+
+  /* Text link with a stitched underline ("View range") */
+  .link-stitch {
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 2px dashed var(--red);
+    font-weight: 500;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+
+  .link-stitch:hover {
+    color: var(--red-deep);
+  }
+
+  /* Header navigation */
+  .nav-link {
+    display: inline-block;
+    padding-block: 6px;
+    border-bottom: 2px dashed transparent;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .nav-link:hover {
+    color: var(--red);
+  }
+
+  .nav-link[aria-current="page"] {
+    border-bottom-color: var(--red);
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* Cards and panels: borders, never shadows */
+  .card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+
+  a.card:hover,
+  .card-hover:hover {
+    border-color: var(--red);
+  }
+
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 32px;
+  }
+
+  @media (max-width: 40rem) {
+    .panel {
+      padding: 24px;
+    }
+  }
+
+  .dashed-box {
+    border: 1.5px dashed var(--line);
+    border-radius: var(--r);
+  }
+
+  /* Neutral tile behind products and photo placeholders, with a faint diagonal hatch */
+  .tile-hatch {
+    background-color: var(--color-tile);
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgb(28 27 25 / 0.035) 0 1px,
+      transparent 1px 10px
+    );
+  }
+
+  /* Hero: navy from the left, clear by ~78% so the right side of the video stays bright.
+     Below 860px the video is off and the poster sits under a solid navy overlay. */
+  .hero-overlay {
+    background:
+      /* top scrim so the transparent header reads over bright windows */
+      linear-gradient(180deg, rgb(14 23 43 / 0.6) 0, rgb(14 23 43 / 0) 190px),
+      linear-gradient(
+        90deg,
+        rgb(14 23 43 / 0.95) 0%,
+        rgb(14 23 43 / 0.85) 30%,
+        rgb(14 23 43 / 0.5) 55%,
+        rgb(14 23 43 / 0) 78%
+      );
+  }
+
+  @media (max-width: 53.75rem) {
+    /* Lighter at the top so the poster shows through, deeper behind the text block. */
+    .hero-overlay {
+      background:
+        linear-gradient(180deg, rgb(14 23 43 / 0.62) 0, rgb(14 23 43 / 0.8) 40%, rgb(14 23 43 / 0.86) 100%);
+    }
+  }
+
+  /* Home hero headline, larger than the standard hero scale */
+  .t-hero-xl {
+    /* 11.5vw cap keeps "Socks & hosiery" on one line down to 320px screens */
+    font-size: min(clamp(44px, 6vw, 84px), 11.5vw);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+  }
+
+  /* "We make ___": words enter from below and leave through the top */
+  .word-rotator {
+    position: relative;
+    display: block;
+    height: 1.18em;
+    overflow: hidden;
+    color: var(--red);
+  }
+
+  .word-rotator-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    transform: translateY(105%);
+    opacity: 0;
+  }
+
+  .word-rotator-item[data-state="in"] {
+    transform: translateY(0);
+    opacity: 1;
+    transition:
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.1, 1),
+      opacity 0.4s ease-out;
+  }
+
+  .word-rotator-item[data-state="out"] {
+    transform: translateY(-105%);
+    opacity: 0;
+    transition:
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.1, 1),
+      opacity 0.5s ease-in;
+  }
+
+  /* One-time entrance for hero content. Reduced-motion users get it instantly
+     via the global rule in the base layer. */
+  .rise {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: var(--rise-delay, 0ms);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Letter-by-letter heading reveal (SplitReveal). Letters hide only once JS marks
+     the heading "ready", then rise into place when it scrolls into view. */
+  .split-char {
+    display: inline-block;
+    transition:
+      transform 0.5s cubic-bezier(0.215, 0.61, 0.355, 1),
+      opacity 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-delay: calc(var(--i, 0) * 30ms);
+  }
+
+  .split-reveal[data-split="ready"] .split-char {
+    opacity: 0;
+    transform: translateY(120%) rotate(10deg);
+    transition: none;
+  }
+
+  /* Category showcase: swipeable strip on small screens, 3-column grid on large
+     screens without the WebGL gallery. */
+  .cat-strip {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 24px;
+    padding: 8px max(24px, env(safe-area-inset-left));
+    scrollbar-width: none;
+  }
+
+  .cat-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-strip > li {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+  }
+
+  /* Tile hover: a red border drawn inside the tile (no movement), per the card rule. */
+  .cat-card-tile {
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    transition: outline-color 0.15s;
+  }
+
+  .cat-card:hover .cat-card-tile {
+    outline-color: var(--red);
+  }
+
+  @media (min-width: 40rem) {
+    .cat-strip > li {
+      flex-basis: 320px;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .cat-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: visible;
+      max-width: calc(var(--container) + 2 * var(--gutter));
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+  }
+
+  /* The gallery canvas already leaves room below the arc for the dropped edge cards,
+     so the section's full bottom padding would double it. */
+  section:has(> .category-showcase[data-mode="gallery"]) {
+    padding-bottom: 24px;
+  }
+
+  @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    section:has(> .category-showcase[data-mode="pending"]) {
+      padding-bottom: 24px;
+    }
+  }
+
+  /* Before hydration on large screens, reserve the gallery's space instead of
+     flashing the grid that the gallery is about to replace. */
+  @media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    .category-showcase[data-mode="pending"] {
+      height: 600px;
+      overflow: hidden;
+    }
+
+    .category-showcase[data-mode="pending"] .cat-strip {
+      visibility: hidden;
+    }
+  }
+
+  /* Process flow: numbered circles on a dashed red line. Horizontal on desktop,
+     vertical below 860px with a connector between each pair of steps. */
+  .flow {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+  }
+
+  .flow::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    /* From the first circle's centre to the last: half a column in from each side. */
+    left: calc((100% - 4 * 24px) / 10);
+    right: calc((100% - 4 * 24px) / 10);
+    border-top: 2px dashed var(--red);
+  }
+
+  .flow-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .flow-num {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--red);
+    border-radius: 50%;
+    background: var(--bg);
+    font-family: var(--head);
+    font-weight: 700;
+  }
+
+  @media (max-width: 53.75rem) {
+    .flow {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .flow::before {
+      content: none;
+    }
+
+    .flow-step {
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .flow-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 50px;
+      bottom: -32px;
+      left: 24px;
+      border-left: 2px dashed var(--red);
+    }
+
+    .flow-step > div {
+      padding-top: 12px;
+    }
+  }
+
+  /* Header over the hero video (home page, before scrolling) */
+  .header-overlay .nav-link {
+    color: rgb(255 255 255 / 0.88);
+  }
+
+  .header-overlay .nav-link:hover {
+    color: var(--on-dark);
+  }
+
+  .header-overlay .nav-link[aria-current="page"] {
+    border-bottom-color: rgb(255 255 255 / 0.7);
+  }
+
+  /* Forms */
+  .field-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .field-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--bg);
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .field-input:focus {
+    outline: 2px solid var(--blue);
+    outline-offset: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════
+     LEATHER THEME — Deep Espresso Brown, Warm Cream & Metallic Gold
+     Colors: --leather-espresso #2C1A12 | --leather-gold #D4AF37 | #FDFBF7
+  ═══════════════════════════════════════════════════════════════ */
+  :root {
+    --fight-navy: #2C1A12;
+    --fight-red: #D4AF37;
+    --leather-espresso: #2C1A12;
+    --leather-gold: #D4AF37;
+    --leather-cream: #FDFBF7;
+  }
+
+  /* Slanted image clip — main left-side diagonal cut */
+  .clip-slant-right {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+  }
+
+  /* Slanted image clip — right-side diagonal cut */
+  .clip-slant-left {
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  /* Diamond accent shape used as decorative element */
+  .clip-diamond {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  /* Gold accent slash bar (decorative) */
+  .fight-slash::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 6px;
+    height: 100%;
+    background: var(--leather-gold);
+    transform: skewX(-8deg);
+  }
+
+  /* Split background: left espresso, right cream */
+  .fight-split-bg {
+    background: linear-gradient(90deg, var(--leather-espresso) 50%, #FDFBF7 50%);
+  }
+
+  /* Split background: left cream, right espresso */
+  .fight-split-bg-rev {
+    background: linear-gradient(90deg, #FDFBF7 50%, var(--leather-espresso) 50%);
+  }
+
+  /* Gold corner accent tab */
+  .fight-corner-tab::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--leather-gold);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
+
+  /* Fight section — tight top/bottom padding for dense layouts */
+  .fight-section {
+    padding-block: 80px;
+  }
+
+  @media (max-width: 40rem) {
+    .fight-section {
+      padding-block: 56px;
+    }
+  }
+
+  /* Numbered step badge for the process flow in leather style */
+  .fight-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: var(--leather-gold);
+    color: #1E100A;
+    font-family: var(--head);
+    font-weight: 700;
+    font-size: 18px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+}
+
+
